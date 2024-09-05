@@ -8,12 +8,12 @@
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
-    <div class="card mb-2" th:each="quiz:${quizzes}">
-        <a th:href="@{/quiz/{id}(id=${quiz.quizId})}">
             <div class="card-header" th:text="${quiz.title}"></div>
-        </a>
-    </div>
 </div>
+
+<button id="startButton">
+    Start Quiz
+</button>
 
 </body>
 </html>
