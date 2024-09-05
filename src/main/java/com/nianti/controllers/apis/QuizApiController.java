@@ -18,12 +18,11 @@ public class QuizApiController {
     @Autowired
     private QuestionDao questionDao;
 
-    @GetMapping("/api/quiz/{quizId}/question/{questionId}")
-    public ResponseEntity <Question> getQuestion(@PathVariable int quizId, @PathVariable int questionId) {
+    @GetMapping("/api/quiz/{quizId}/question/{questionNumber}")
+    public ResponseEntity <Question> getQuestion(@PathVariable int quizId, @PathVariable int questionNumber) {
 
-       // Question question = questionDao.getQuestionByQuizId(quizId);
-      //  return ResponseEntity.ok(question);
-        return null;
+       Question question  = questionDao.getQuestionByQuizAndQuestion(quizId, questionNumber);
+      return ResponseEntity.ok(question);
 
     }
 
