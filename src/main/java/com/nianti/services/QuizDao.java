@@ -48,4 +48,24 @@ public class QuizDao
 
         return new Quiz(id, title, isLive);
     }
+
+    public Quiz getQuizById(int quizId) {
+
+        // string sql WHERE quiz_id = ?
+        String sql = """
+                SELECT quiz_id
+                    , quiz_title
+                    , is_live
+                FROM quiz
+                WHERE quiz_id = ?
+                """;
+
+        var row = jdbcTemplate.queryForRowSet(sql, quizId);
+        if (row.next()) {
+            return mapRowToQuiz(row);
+        }
+
+        return null;
+    }
+
 }

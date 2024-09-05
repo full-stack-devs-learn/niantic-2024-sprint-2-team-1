@@ -30,7 +30,7 @@ CREATE TABLE answer
 -- add quiz
 INSERT INTO quiz(quiz_id, quiz_title, is_live)
 VALUES (1, 'General History', 1)
-     , (2, 'Academic Trivia', 2)
+     , (2, 'Academic Trivia', 1)
 ;
 
 INSERT INTO question(question_id, quiz_id, question_number, question_text)
