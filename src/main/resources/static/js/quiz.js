@@ -1,5 +1,5 @@
 let currentQuestionId = 1;  // Start with question 1
-let totalQuestions = 5;
+let totalQuestions = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     startQuiz();
@@ -15,6 +15,23 @@ function startQuiz() {
     startButton.addEventListener("click", () => {
         loadQuestion(quizId, currentQuestionId);  // Load the first question when the button is clicked
     });
+}
+
+function loadQuiz(quizId)
+{
+    fetch(`/api/quiz/${quizId}/question`)
+    .then(response => {
+    if (!response.ok) {
+        throw new Error('Failed to load quiz');
+    }
+    return response.text();
+    })
+    .then(data => {
+    totalQuestions = data
+    loadQuestion(quizId, totalQuestions[currentQuestionId].questionId)
+    })
+    console.log("Here is the total amount of questions:", totalQuestions)
+    //.catch(error => console.error('Error:', error));
 }
 
 function loadQuestion(quizId, questionId) {
@@ -58,15 +75,23 @@ function attachAnswerListeners(quizId) {
 
     // Add event listener to the "Next" button
     document.getElementById("nextButton").addEventListener("click", () => {
+        loadNextQuestion(quizId);
+    });
+}
+
+function loadNextQuestion(quizId)
+{
+        console.log("Current question ID: ", currentQuestionId);
+        console.log("Total questions length: ", totalQuestions.length)
         // Load the next question if there are more
-        if (currentQuestionId < totalQuestions) {
+        if (currentQuestionId < totalQuestions.length - 1) {
             currentQuestionId++;
-            loadQuestion(quizId, currentQuestionId);
+            console.log(totalQuestions.length);
+            loadQuestion(quizId, totalQuestions[currentQuestionId].questionId);
         } else {
             // Show final message or score when the quiz is finished
             showFinalMessage();
         }
-    });
 }
 
 function selectAnswer(selectedAnswerId, correctAnswerId) {

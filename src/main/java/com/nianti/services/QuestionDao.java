@@ -45,7 +45,7 @@ public class QuestionDao {
     }
 
     // Fetch a specific question by quizId and questionId
-    public Question getQuestionByQuizAndQuestion(int quizId, int questionId) {
+    public Question getQuestion(int quizId, int questionId) {
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
             FROM question

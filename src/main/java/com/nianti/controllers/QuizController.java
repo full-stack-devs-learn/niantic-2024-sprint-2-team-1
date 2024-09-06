@@ -36,7 +36,7 @@ public class QuizController {
     public String loadQuestion(@PathVariable int quizId, @PathVariable int questionId, Model model) {
         // Get the question based on the quizId and questionId
 
-        Question question = questionDao.getQuestionByQuizAndQuestion(quizId, questionId);
+        Question question = questionDao.getQuestion(quizId, questionId);
         model.addAttribute("question", question);
         return "quiz/fragments/currentQuestion";
     }

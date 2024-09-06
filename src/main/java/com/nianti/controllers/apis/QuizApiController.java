@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")  // Base path for API endpoints
@@ -22,8 +19,8 @@ public class QuizApiController {
 
     // API to load the question for the given quiz and question number in JSON format
     @GetMapping("/quiz/{quizId}/question/{questionNumber}")
-    public ResponseEntity<Question> getQuestionByQuizAndQuestion(@PathVariable int quizId, @PathVariable int questionNumber) {
-        Question question = questionDao.getQuestionByQuizAndQuestion(quizId, questionNumber);
+    public ResponseEntity<Question> getQuestion(@PathVariable int quizId, @PathVariable int questionNumber) {
+        Question question = questionDao.getQuestion(quizId, questionNumber);
 
         if (question == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
