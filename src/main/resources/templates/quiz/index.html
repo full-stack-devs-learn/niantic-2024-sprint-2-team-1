@@ -13,8 +13,10 @@
     <div class="card-header" th:text="${quiz.title}"></div>
 </div>
 
-<!-- Dynamically pass quizId using Thymeleaf -->
-<button th:attr="data-quiz-id=${quiz.quizId}" id="startButton">Start Quiz!</button>
+<!-- Dynamically pass quizId and total number of questions using Thymeleaf -->
+<button th:attr="data-quiz-id=${quiz.quizId}, data-total-questions=${totalQuestions}" id="startButton">
+    Start Quiz!
+</button>
 
 <div id="quizText"></div>
 

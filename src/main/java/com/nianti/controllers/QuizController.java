@@ -25,6 +25,11 @@ public class QuizController {
 
         // get details by quiz id
         Quiz quiz = quizDao.getQuizById(quizId);
+
+        int totalQuestions = quiz.getQuestions().size();
+
+        model.addAttribute("totalQuestions", totalQuestions);
+
         model.addAttribute("quiz", quiz);
 
         return "quiz/index";

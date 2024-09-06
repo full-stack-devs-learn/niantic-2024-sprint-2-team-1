@@ -99,4 +99,11 @@ public class QuestionDao {
 
         return answers;
     }
+
+    // get total amount of questions from database
+    public int getTotalQuestionsByQuizId(int quizId) {
+        String sql = "SELECT COUNT(*) FROM question WHERE quiz_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, quizId);
+    }
+
 }

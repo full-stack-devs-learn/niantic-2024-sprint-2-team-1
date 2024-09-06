@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")  // Base path for API endpoints
 public class QuizApiController {
@@ -27,5 +30,15 @@ public class QuizApiController {
         }
 
         return ResponseEntity.ok(question);  // Return the question as JSON
+    }
+
+    // API to get the total number of questions for a given quiz
+    @GetMapping("/quiz/{quizId}/total-questions")
+    public ResponseEntity<Map<String, Integer>> getTotalQuestions(@PathVariable int quizId) {
+        int totalQuestions = questionDao.getTotalQuestionsByQuizId(quizId);
+        Map<String, Integer> response = new HashMap<>();
+        response.put("totalQuestions", totalQuestions);
+
+        return ResponseEntity.ok(response);  // Return total number of questions in JSON format
     }
 }
