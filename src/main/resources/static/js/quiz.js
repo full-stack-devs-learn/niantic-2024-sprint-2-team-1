@@ -110,5 +110,5 @@ function selectAnswer(correctAnswerId) {
 
 function showFinalMessage() {
     const quizText = document.getElementById("quizText");
-    quizText.innerHTML = '<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>';
+    quizText.innerHTML = `<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>`;
 }
