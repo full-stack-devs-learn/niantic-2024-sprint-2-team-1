@@ -5,14 +5,12 @@
         <ul>
             <!-- Loop through each answer and display it as a button -->
             <li th:each="answer : ${question.answers}">
-                <button th:text="${answer.answerText}"
-                        th:attr="data-answer-id=${answer.answerId}, data-is-correct=${answer.isCorrect}"
-                        onclick="selectAnswer(this)">
-                    Answer text
-                </button>
-            </li>
+                <input type="radio" th:attr="name='answer', value=${answer.isCorrect}, data-is-correct=${answer.isCorrect}"
+                       id="answer-${answer.answerId}">
+                <label th:for="'answer-' + ${answer.answerId}" th:text="${answer.answerText}"></label></li>
         </ul>
-        <button id="nextButton" style="display:none;" >Next</button>
+        <button id="nextButton" style="display:none;">Next</button>
     </div>
 </div>
 <!-- onclick="loadQuestion()" -->
+

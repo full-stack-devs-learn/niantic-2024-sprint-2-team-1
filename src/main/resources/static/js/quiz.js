@@ -1,5 +1,6 @@
 let currentQuestionId = 1;  // Start with question 1
 let totalQuestions = 0;  // Initialize as 0 and update dynamically
+let correctAnswers = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     startQuiz();
@@ -54,19 +55,25 @@ function loadQuestion(quizId, questionId) {
 }
 
 function attachAnswerListeners(quizId) {
-    const answerButtons = document.querySelectorAll('#quizContent button');
+    const answerButtons = document.querySelectorAll('#quizContent input');
 
     answerButtons.forEach(button => {
         button.addEventListener('click', () => {
             const selectedAnswerId = button.getAttribute('data-answer-id');
-            const correctAnswerId = button.getAttribute('data-correct-answer-id');
+            const correctAnswerId = button.getAttribute('data-is-correct');
 
-            selectAnswer(selectedAnswerId, correctAnswerId);
+            //EXPERIMENT:
+            //document.getElementById("nextButton").setAttribute('isCorrect', correctAnswerId);
+
+            console.log("data-answer-id :", selectedAnswerId);
+            console.log("data-is-correct", correctAnswerId);
+            selectAnswer(correctAnswerId);
             document.getElementById("nextButton").style.display = "block";  // Show the "Next" button
         });
     });
 
     document.getElementById("nextButton").addEventListener("click", () => {
+
         loadNextQuestion(quizId);
     });
 }
@@ -85,16 +92,20 @@ function loadNextQuestion(quizId) {
     }
 }
 
-function selectAnswer(selectedAnswerId, correctAnswerId) {
+function selectAnswer(correctAnswerId) {
     // Compare selected answer with the correct answer
-    if (selectedAnswerId === correctAnswerId) {
+    console.log("correctAnswerId: ", correctAnswerId)
+    if (correctAnswerId == true) {
         console.log("Correct answer!");
+        correctAnswers++;
+        console.log("total correct: ", correctAnswers)
     } else {
+        console.log(correctAnswerId)
         console.log("Incorrect answer.");
     }
 }
 
 function showFinalMessage() {
     const quizText = document.getElementById("quizText");
-    quizText.innerHTML = "<h2>Quiz Completed! Thank you for participating.</h2>";
+    quizText.innerHTML = "<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>";
 }
