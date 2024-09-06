@@ -55,28 +55,31 @@ function loadQuestion(quizId, questionId) {
 }
 
 function attachAnswerListeners(quizId) {
-    const answerButtons = document.querySelectorAll('#quizContent input');
+    const nextButton = document.getElementById("nextButton");
 
-    answerButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const selectedAnswerId = button.getAttribute('data-answer-id');
-            const correctAnswerId = button.getAttribute('data-is-correct');
-
-            //EXPERIMENT:
-            //document.getElementById("nextButton").setAttribute('isCorrect', correctAnswerId);
-
-            console.log("data-answer-id :", selectedAnswerId);
-            console.log("data-is-correct", correctAnswerId);
-            selectAnswer(correctAnswerId);
-            document.getElementById("nextButton").style.display = "block";  // Show the "Next" button
+    // Attach change event to all radio buttons
+    document.querySelectorAll('input[name="answer"]').forEach((radio) => {
+        radio.addEventListener('change', () => {
+            // Show the "Next" button when an answer is selected
+            nextButton.style.display = "block";
         });
     });
 
-    document.getElementById("nextButton").addEventListener("click", () => {
+    // Attach click event to the "Next" button
+    nextButton.addEventListener('click', () => {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        if (selectedAnswer) {
+            const selectedAnswerId = selectedAnswer.value;
+            const correctAnswer = selectedAnswer.getAttribute('data-is-correct');
 
-        loadNextQuestion(quizId);
+            selectAnswer(selectedAnswerId, correctAnswer);
+            loadNextQuestion(quizId);
+        } else {
+            alert("Please select an answer!");  // Just in case no answer is selected
+        }
     });
 }
+
 
 function loadNextQuestion(quizId) {
     console.log("Current question ID: ", currentQuestionId);
