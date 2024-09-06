@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="fragments/head :: head"></div>
+<head th:replace="fragments/head :: head"></head>
 
 <script src="/js/quiz.js"></script>
 
@@ -10,17 +10,13 @@
 <div th:replace="fragments/navigation :: nav"></div>
 
 <div class="container mt-4">
-            <div class="card-header" th:text="${quiz.title}"></div>
+    <div class="card-header" th:text="${quiz.title}"></div>
 </div>
 
-<button id="startButton">
-    Start Quiz
-</button>
+<!-- Dynamically pass quizId using Thymeleaf -->
+<button th:attr="data-quiz-id=${quiz.quizId}" id="startButton">Start Quiz!</button>
 
-<div id="quizText">
-
-
-</div>
+<div id="quizText"></div>
 
 </body>
 </html>

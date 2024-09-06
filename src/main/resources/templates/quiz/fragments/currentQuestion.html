@@ -1,0 +1,17 @@
+<!-- fragments/currentQuestion.html -->
+<div th:fragment="currentQuestion" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div id="quizContent">
+        <h2 th:text="${question.questionText}">Question text will go here</h2>
+        <ul>
+            <!-- Loop through each answer and display it as a button -->
+            <li th:each="answer : ${question.answers}">
+                <button th:text="${answer.answerText}"
+                        th:attr="data-answer-id=${answer.answerId}, data-is-correct=${answer.isCorrect}"
+                        onclick="selectAnswer(this)">
+                    Answer text
+                </button>
+            </li>
+        </ul>
+        <button id="nextButton" style="display:none;" onclick="loadNextQuestion()">Next</button>
+    </div>
+</div>

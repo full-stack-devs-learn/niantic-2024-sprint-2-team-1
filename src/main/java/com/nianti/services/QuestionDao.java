@@ -1,5 +1,6 @@
 package com.nianti.services;
 
+import com.nianti.models.Answer;
 import com.nianti.models.Question;
 import com.nianti.models.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,65 +13,90 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class QuestionDao
-{
+public class QuestionDao {
+
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public QuestionDao(DataSource dataSource)
-    {
+    public QuestionDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Question> getQuestionByQuizId(int quizId)
-    {
+    // Fetch all questions by quizId
+    public List<Question> getQuestionByQuizId(int quizId) {
         List<Question> questions = new ArrayList<>();
         String sql = """
-            SELECT question_id
-                , quiz_id
-                , question_number
-                , question_text
+            SELECT question_id, quiz_id, question_number, question_text
             FROM question
             WHERE quiz_id = ?;
         """;
         var row = jdbcTemplate.queryForRowSet(sql, quizId);
 
-        while (row.next())
-        {
-            Question question = new Question();
-            question = mapRowToQuestion(row);
+        while (row.next()) {
+            Question question = mapRowToQuestion(row);
+
+            // Fetch the answers for each question
+            List<Answer> answers = getAnswersByQuestionId(question.getQuestionId());
+            question.setAnswers(answers);  // Attach answers to the question
+
             questions.add(question);
         }
         return questions;
     }
 
-    public Question getQuestionByQuizAndQuestion(int quizId ,int questionNumber)
-    {
-        Question question = new Question();
+    // Fetch a specific question by quizId and questionId
+    public Question getQuestionByQuizAndQuestion(int quizId, int questionId) {
         String sql = """
-            SELECT question_id
-                , quiz_id
-                , question_number
-                , question_text
+            SELECT question_id, quiz_id, question_number, question_text
             FROM question
-            WHERE quiz_id = ? AND question_number = ?;
+            WHERE quiz_id = ? AND question_id = ?;
         """;
-        var row = jdbcTemplate.queryForRowSet(sql, quizId, questionNumber);
 
-        while (row.next())
-        {
-            question = mapRowToQuestion(row);
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId, questionId);
+
+        if (rowSet.next()) {
+            Question question = mapRowToQuestion(rowSet);
+
+            // Fetch the answers for this question
+            List<Answer> answers = getAnswersByQuestionId(question.getQuestionId());
+            question.setAnswers(answers);  // Attach answers to the question
+
+            return question;
         }
-        return question;
+
+        return null;
     }
 
-    private Question mapRowToQuestion(SqlRowSet row)
-    {
-        int id      = row.getInt("question_id");
-        int quiz    = row.getInt("quiz_id");
-        int number  = row.getInt("question_number");
+    // Map SQL row to a Question object
+    private Question mapRowToQuestion(SqlRowSet row) {
+        int id = row.getInt("question_id");
+        int quiz = row.getInt("quiz_id");
+        int number = row.getInt("question_number");
         String text = row.getString("question_text");
 
         return new Question(id, quiz, number, text);
+    }
+
+    // Fetch all answers for a given questionId
+    public List<Answer> getAnswersByQuestionId(int questionId) {
+        String sql = """
+            SELECT answer_id, question_id, answer_text, is_correct
+            FROM answer
+            WHERE question_id = ?;
+        """;
+
+        List<Answer> answers = new ArrayList<>();
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, questionId);
+
+        while (rowSet.next()) {
+            Answer answer = new Answer();
+            answer.setAnswerId(rowSet.getInt("answer_id"));
+            answer.setQuestionId(rowSet.getInt("question_id"));
+            answer.setAnswerText(rowSet.getString("answer_text"));
+            answer.setCorrect(rowSet.getBoolean("is_correct"));
+            answers.add(answer);
+        }
+
+        return answers;
     }
 }
