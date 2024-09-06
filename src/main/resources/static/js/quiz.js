@@ -1,5 +1,5 @@
 let currentQuestionId = 1;  // Start with question 1
-let totalQuestions = [];
+let totalQuestions = 5;
 
 document.addEventListener("DOMContentLoaded", () => {
     startQuiz();
@@ -84,10 +84,10 @@ function loadNextQuestion(quizId)
         console.log("Current question ID: ", currentQuestionId);
         console.log("Total questions length: ", totalQuestions.length)
         // Load the next question if there are more
-        if (currentQuestionId < totalQuestions.length - 1) {
+        if (currentQuestionId < totalQuestions) {
             currentQuestionId++;
-            console.log(totalQuestions.length);
-            loadQuestion(quizId, totalQuestions[currentQuestionId].questionId);
+            console.log(totalQuestions);
+            loadQuestion(quizId, currentQuestionId);
         } else {
             // Show final message or score when the quiz is finished
             showFinalMessage();

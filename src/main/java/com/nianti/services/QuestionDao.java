@@ -22,7 +22,7 @@ public class QuestionDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // Fetch all questions by quizId
+    // Fetch all questions by quizId **Unused?
     public List<Question> getQuestionByQuizId(int quizId) {
         List<Question> questions = new ArrayList<>();
         String sql = """
@@ -49,7 +49,7 @@ public class QuestionDao {
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
             FROM question
-            WHERE quiz_id = ? AND question_id = ?;
+            WHERE quiz_id = ? AND question_id = ?
         """;
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId, questionId);

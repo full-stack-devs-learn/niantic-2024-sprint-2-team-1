@@ -10,6 +10,7 @@ public class Quiz
 
     private ArrayList<Question> questions = new ArrayList<>();
 
+
     public Quiz()
     {
     }
@@ -60,4 +61,6 @@ public class Quiz
     {
         this.questions = questions;
     }
+
+
 }
