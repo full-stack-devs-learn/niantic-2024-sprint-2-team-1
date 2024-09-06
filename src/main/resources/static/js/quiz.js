@@ -72,7 +72,7 @@ function attachAnswerListeners(quizId) {
             const selectedAnswerId = selectedAnswer.value;
             const correctAnswer = selectedAnswer.getAttribute('data-is-correct');
 
-            selectAnswer(selectedAnswerId, correctAnswer);
+            selectAnswer(correctAnswer);
             loadNextQuestion(quizId);
         } else {
             alert("Please select an answer!");  // Just in case no answer is selected
@@ -98,7 +98,7 @@ function loadNextQuestion(quizId) {
 function selectAnswer(correctAnswerId) {
     // Compare selected answer with the correct answer
     console.log("correctAnswerId: ", correctAnswerId)
-    if (correctAnswerId == true) {
+    if (correctAnswerId == "true") {
         console.log("Correct answer!");
         correctAnswers++;
         console.log("total correct: ", correctAnswers)
@@ -110,5 +110,5 @@ function selectAnswer(correctAnswerId) {
 
 function showFinalMessage() {
     const quizText = document.getElementById("quizText");
-    quizText.innerHTML = "<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>";
+    quizText.innerHTML = '<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>';
 }
