@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="fragments/head :: head"></div>
+<head th:replace="fragments/head :: head"></head>
+
+<!-- Link to your external CSS -->
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 
 <body>
 
+<!-- Include navigation -->
 <div th:replace="fragments/navigation :: nav"></div>
 
-<div class="container mt-4">
-    <div class="card mb-2" th:each="quiz:${quizzes}">
-        <a th:href="@{/quiz/{id}(id=${quiz.quizId})}">
-            <div class="card-header" th:text="${quiz.title}"></div>
-        </a>
+<!-- Container for quiz cards -->
+<div class="quiz-container">
+    <h1 class="page-title">Available Quizzes</h1>
+    <div class="quiz-list">
+        <!-- Each quiz rendered as a card -->
+        <div class="card mb-2" th:each="quiz: ${quizzes}">
+            <a th:href="@{/quiz/{id}(id=${quiz.quizId})}" class="card-link">
+                <div class="card-header" th:text="${quiz.title}"></div>
+            </a>
+        </div>
     </div>
 </div>
 

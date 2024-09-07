@@ -15,7 +15,8 @@ function startQuiz() {
     fetchTotalQuestions(quizId)
         .then(() => {
             startButton.addEventListener("click", () => {
-                loadQuestion(quizId, currentQuestionId);  // Load the first question when the button is clicked
+                loadQuestion(quizId, currentQuestionId);
+                startButton.style.display = "none"; // Load the first question when the button is clicked
             });
         });
 }
@@ -110,5 +111,5 @@ function selectAnswer(correctAnswerId) {
 
 function showFinalMessage() {
     const quizText = document.getElementById("quizText");
-    quizText.innerHTML = `<h2>Quiz Completed! Thank you for participating.<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>`;
+    quizText.innerHTML = `<h2>Thank you for participating!<br><br>Your score was: ${correctAnswers} out of ${totalQuestions}</h2>`;
 }

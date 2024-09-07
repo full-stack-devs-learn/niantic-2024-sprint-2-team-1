@@ -1,0 +1,201 @@
+/* General styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styling */
+body {
+    background-image: url('/images/main-background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    padding-top: 80px;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Navigation Bar Styling */
+
+.navbar-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(248, 249, 250, 0.5);  /* Light gray background with transparency */
+    padding: 16px 32px;  /* Add padding for spacing */
+    display: flex;
+    justify-content: flex-start;  /* Align items to the left */
+    align-items: center;  /* Vertically center the logo and buttons */
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo styling */
+.navbar-logo {
+    font-size: 24px;
+    color: #000;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    text-decoration: none;
+    margin-right: 25px;  /* Space between the logo and the nav buttons */
+}
+
+/* Navbar buttons container */
+.nav-buttons {
+    display: flex;
+    gap: 20px;  /* Space between buttons */
+    margin-left: 10px;  /* Ensure some space between logo and buttons */
+}
+
+/* Styling the nav links as buttons */
+.nav-link {
+    background-color: #d4edda;  /* Light green background */
+    border: 2px solid #28a745;
+    border-radius: 30px;
+    color: #000;
+    padding: 10px 15px;  /* Larger padding for a button-like look */
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.nav-link:hover {
+    background-color: #28a745;  /* Darker green on hover */
+    color: #fff;
+    transform: translateY(-3px);  /* Lift the button slightly on hover */
+}
+
+
+/* Styling for the quiz container */
+.quiz-container {
+    max-width: 800px;
+    margin: 200px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Page title */
+.page-title {
+    font-size: 32px;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling for the quiz list container */
+.quiz-list {
+    display: block;
+}
+
+/* Card styling */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 20px 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card header styling */
+.card-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+}
+
+/* Card link styling */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Add a smooth transition for hover effects */
+a:hover .card-header {
+    color: #28a745;  /* Change the text color on hover */
+}
+
+
+/* General styling for the quiz content FRAGMENT */
+#quizContent {
+    background-color: rgba(255, 255, 255, 0.8);  /* Light background with slight transparency */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/* Styling for the quiz question */
+.quiz-question {
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Styling for the answer list */
+.quiz-answers {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for each answer item */
+.quiz-answer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Styling for the radio buttons */
+.quiz-radio {
+    margin-right: 10px;
+    transform: scale(1.5);  /* Make the radio buttons larger */
+    cursor: pointer;
+}
+
+/* Styling for the answer labels */
+.quiz-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Styling for the "Next" button */
+.quiz-next-btn {
+    background-color: #d4edda;  /* Light green background */
+    border: 2px solid #28a745;
+    border-radius: 30px;
+    color: #000;
+    padding: 10px 15px;  /* Larger padding for a button-like look */
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.quiz-next-btn:hover {
+    background-color: #28a745;  /* Darker green on hover */
+    color: #fff;
+    transform: translateY(-3px);  /* Lift the button slightly on hover */
+}

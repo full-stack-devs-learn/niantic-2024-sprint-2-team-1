@@ -68,4 +68,28 @@ public class QuizDao
         return null;
     }
 
+    // Add a new quiz
+    public void addQuiz(Quiz quiz) {
+        String sql = "INSERT INTO quiz (title, is_live) VALUES (?, ?)";
+        jdbcTemplate.update(sql, quiz.getTitle(), quiz.isLive());
+    }
+
+    // Edit an existing quiz
+    public void editQuiz(Quiz quiz) {
+        String sql = "UPDATE quiz SET title = ?, is_live = ? WHERE quiz_id = ?";
+        jdbcTemplate.update(sql, quiz.getTitle(), quiz.isLive(), quiz.getQuizId());
+    }
+
+    // Delete a quiz by id
+    public void deleteQuiz(int quizId) {
+        String sql = "DELETE FROM quiz WHERE quiz_id = ?";
+        jdbcTemplate.update(sql, quizId);
+    }
+
+    // Toggle live status
+    public void toggleLiveStatus(int quizId) {
+        String sql = "UPDATE quiz SET is_live = NOT is_live WHERE quiz_id = ?";
+        jdbcTemplate.update(sql, quizId);
+    }
+
 }
