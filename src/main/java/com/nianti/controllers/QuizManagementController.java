@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -52,25 +53,42 @@ public class QuizManagementController {
     public String showEditQuizForm(@PathVariable int quizId, Model model) {
         Quiz quiz = quizDao.getQuizById(quizId);
         model.addAttribute("quiz", quiz);
-        return "quiz/edit";  // View for the edit quiz form
+        return "quiz-management/edit";  // View for the edit quiz form
     }
 
     // Process the form submission for editing a quiz
     @PostMapping("/edit/{quizId}")
     public String editQuiz(@PathVariable int quizId, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result) {
         if (result.hasErrors()) {
-            return "quiz/edit";  // Return form view if validation errors occur
+            return "quiz-management/edit";  // Return form view if validation errors occur
         }
 
         quizDao.editQuiz(quiz);  // Update the quiz
         return "redirect:/quizzes";  // Redirect back to the quiz management page
     }
 
-    // Handle enabling/disabling a quiz by updating its isLive status
-    @PostMapping("/toggleLive/{quizId}")
-    public String toggleQuizLiveStatus(@PathVariable int quizId) {
-        quizDao.toggleLiveStatus(quizId);  // Enable or disable the quiz
+    @PostMapping("/toggle-live/{quizId}")
+    public String toggleQuizLiveStatus(@PathVariable int quizId, RedirectAttributes redirectAttributes) {
+
+        // Retrieve the quiz by its ID
+        Quiz quiz = quizDao.getQuizById(quizId);
+
+        if (quiz != null) {
+            // Toggle the isLive status
+            boolean isCurrentlyLive = quiz.isLive();
+            quiz.setLive(!isCurrentlyLive);
+
+            // Update the quiz in the database
+            quizDao.editQuiz(quiz);
+
+            // Add a flash message based on the new status
+            String message = isCurrentlyLive ? "The quiz has been turned off." : "The quiz has been turned on.";
+            redirectAttributes.addFlashAttribute("message", message);
+        }
+
+        // Redirect back to the quiz management page
         return "redirect:/quizzes";
     }
+
 }
 

@@ -9,7 +9,7 @@
 <div th:replace="fragments/navigation :: nav"></div>
 
 <!-- Main container for quiz management -->
-<div class="container mt-4">
+<div class="container mt-4 quiz-container">
 
     <!-- Page title -->
     <h1 class="page-title">Quiz Management</h1>
@@ -22,21 +22,25 @@
     <!-- List of quizzes with options to edit, delete, and manage live status -->
     <div class="quiz-list">
         <div class="card mb-2" th:each="quiz : ${quizzes}">
-            <div class="card-header" th:text="${quiz.title}"></div>
+            <a th:href="@{/quiz/{id}(id=${quiz.quizId})}" class="card-link">
+                <div class="card-header" th:text="${quiz.title}"></div>
+            </a>
 
-            <!-- Options to edit, delete, or toggle live status -->
+            <!-- Show quiz live status with dynamic color -->
+            <div class="status-badge" th:if="${quiz.isLive}">
+                <span class="badge badge-success">Live</span>
+            </div>
+            <div class="status-badge" th:if="${!quiz.isLive}">
+                <span class="badge badge-danger">Disabled</span>
+            </div>
+
+            <!-- Toggle live status -->
             <div class="card-body">
-                <!-- Edit Quiz -->
-                <a th:href="@{/quizzes/edit/{id}(id=${quiz.quizId})}" class="btn nav-link">Edit</a>
-
-                <!-- Delete Quiz -->
-                <form th:action="@{/quizzes/delete/{id}(id=${quiz.quizId})}" method="post" style="display:inline;">
-                    <button type="submit" class="btn nav-link">Delete</button>
-                </form>
 
                 <!-- Toggle Live Status -->
                 <form th:action="@{/quizzes/toggle-live/{id}(id=${quiz.quizId})}" method="post" style="display:inline;">
-                    <button type="submit" class="btn nav-link" th:text="${quiz.isLive} ? 'Disable' : 'Enable'"></button>
+                    <button type="submit" class="btn nav-link" th:classappend="${quiz.isLive} ? 'btn-danger' : 'btn-success'"
+                            th:text="${quiz.isLive} ? 'Disable' : 'Enable'"></button>
                 </form>
             </div>
         </div>

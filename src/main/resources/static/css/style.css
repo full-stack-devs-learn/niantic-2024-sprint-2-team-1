@@ -199,3 +199,17 @@ a:hover .card-header {
     color: #fff;
     transform: translateY(-3px);  /* Lift the button slightly on hover */
 }
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
