@@ -22,7 +22,8 @@
     <!-- List of quizzes with options to edit, delete, and manage live status -->
     <div class="quiz-list">
         <div class="card mb-2" th:each="quiz : ${quizzes}">
-            <a th:href="@{/quiz/{id}(id=${quiz.quizId})}" class="card-link">
+            <!-- CHANGE THIS LINK TO THE DETAILS PAGE -->
+            <a th:href="@{/quizzes/{id}(id=${quiz.quizId})}" class="card-link">
                 <div class="card-header" th:text="${quiz.title}"></div>
             </a>
 

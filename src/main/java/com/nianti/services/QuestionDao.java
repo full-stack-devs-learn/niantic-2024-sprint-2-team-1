@@ -23,7 +23,7 @@ public class QuestionDao {
     }
 
     // Fetch all questions by quizId **Unused?
-    public List<Question> getQuestionByQuizId(int quizId) {
+    public List<Question> getQuestionsByQuizId(int quizId) {
         List<Question> questions = new ArrayList<>();
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
@@ -45,14 +45,14 @@ public class QuestionDao {
     }
 
     // Fetch a specific question by quizId and questionId
-    public Question getQuestion(int quizId, int questionId) {
+    public Question getQuestion(int quizId, int questionNumber) {
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
             FROM question
             WHERE quiz_id = ? AND question_number = ?
         """;
 
-        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId, questionId);
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId, questionNumber);
 
         if (rowSet.next()) {
             Question question = mapRowToQuestion(rowSet);

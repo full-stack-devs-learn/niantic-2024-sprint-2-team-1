@@ -48,24 +48,24 @@ public class QuizManagementController {
         return "quiz-management/add_success";  // Redirect back to the quiz management page
     }
 
-    // Display the form to edit an existing quiz
-    @GetMapping("/edit/{quizId}")
-    public String showEditQuizForm(@PathVariable int quizId, Model model) {
-        Quiz quiz = quizDao.getQuizById(quizId);
-        model.addAttribute("quiz", quiz);
-        return "quiz-management/edit";  // View for the edit quiz form
-    }
-
-    // Process the form submission for editing a quiz
-    @PostMapping("/edit/{quizId}")
-    public String editQuiz(@PathVariable int quizId, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result) {
-        if (result.hasErrors()) {
-            return "quiz-management/edit";  // Return form view if validation errors occur
-        }
-
-        quizDao.editQuiz(quiz);  // Update the quiz
-        return "redirect:/quizzes";  // Redirect back to the quiz management page
-    }
+//    // Display the form to edit an existing quiz
+//    @GetMapping("/edit/{quizId}")
+//    public String showEditQuizForm(@PathVariable int quizId, Model model) {
+//        Quiz quiz = quizDao.getQuizById(quizId);
+//        model.addAttribute("quiz", quiz);
+//        return "quiz-management/edit";  // View for the edit quiz form
+//    }
+//
+//    // Process the form submission for editing a quiz
+//    @PostMapping("/edit/{quizId}")
+//    public String editQuiz(@PathVariable int quizId, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "quiz-management/edit";  // Return form view if validation errors occur
+//        }
+//
+//        quizDao.editQuiz(quiz);  // Update the quiz
+//        return "redirect:/quizzes";  // Redirect back to the quiz management page
+//    }
 
     @PostMapping("/toggle-live/{quizId}")
     public String toggleQuizLiveStatus(@PathVariable int quizId, RedirectAttributes redirectAttributes) {
@@ -89,6 +89,18 @@ public class QuizManagementController {
         // Redirect back to the quiz management page
         return "redirect:/quizzes";
     }
+
+    @GetMapping("/{quizId}")
+    public String detailsPage(@PathVariable int quizId, Model model)
+    {
+        // Get quiz by Id
+        Quiz quiz = quizDao.getQuizById(quizId);
+        model.addAttribute("quiz", quiz);
+
+        return "quiz-management/details";
+    }
+
+
 
 }
 
