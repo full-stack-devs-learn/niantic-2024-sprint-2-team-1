@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<!-- Link to external JavaScript for handling quiz logic -->
+<script src="/js/quiz.js"></script>
+
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="fragments/navigation :: nav"></div>
+
+<!-- Main content area with styling similar to the homepage -->
+<div class="quiz-container">
+    <h1 class="page-title">Add Quiz</h1>
+
+    <!-- Form to insert quiz information: -->
+    <form action="#" th:object="${quiz}" method="post">
+        <label th:for="*{title}">Quiz Name</label>
+        <input class="form-control input-lg" type="text" th:field="*{title}" required>
+        <br>
+        <label th:for="*{live}">Quiz Name</label>
+        <select class="form-control input-lg" type="text" th:field="*{live}" required>
+            <option value="0" selected>No</option>
+            <option value="1">Yes</option>
+        </select>
+        <br>
+        <input class="btn btn-outline-danger" type="submit" value="Save">
+        <a class="btn btn-warning" href="/" role="button">Cancel</a>
+    </form>
+</div>
+
+</body>
+</html>
+
+

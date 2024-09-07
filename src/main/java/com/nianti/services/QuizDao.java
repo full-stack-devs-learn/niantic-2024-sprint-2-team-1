@@ -70,13 +70,13 @@ public class QuizDao
 
     // Add a new quiz
     public void addQuiz(Quiz quiz) {
-        String sql = "INSERT INTO quiz (title, is_live) VALUES (?, ?)";
+        String sql = "INSERT INTO quiz (quiz_title, is_live) VALUES (?, ?)";
         jdbcTemplate.update(sql, quiz.getTitle(), quiz.isLive());
     }
 
     // Edit an existing quiz
     public void editQuiz(Quiz quiz) {
-        String sql = "UPDATE quiz SET title = ?, is_live = ? WHERE quiz_id = ?";
+        String sql = "UPDATE quiz SET quiz_title = ?, is_live = ? WHERE quiz_id = ?";
         jdbcTemplate.update(sql, quiz.getTitle(), quiz.isLive(), quiz.getQuizId());
     }
 

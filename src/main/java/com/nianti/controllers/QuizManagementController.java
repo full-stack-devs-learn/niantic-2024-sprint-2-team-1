@@ -33,18 +33,18 @@ public class QuizManagementController {
     @GetMapping("/add")
     public String showNewQuizForm(Model model) {
         model.addAttribute("quiz", new Quiz());  // Pass an empty Quiz object to the form
-        return "quiz/new";  // View for the new quiz form
+        return "quiz-management/new";  // View for the new quiz form
     }
 
     // Process the form submission for adding a new quiz
     @PostMapping("/add")
     public String addNewQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "quiz/new";  // Return form view if validation errors occur
+            return "quiz-management/new";  // Return form view if validation errors occur
         }
 
         quizDao.addQuiz(quiz);  // Save the new quiz
-        return "redirect:/quizzes";  // Redirect back to the quiz management page
+        return "quiz-management/add_success";  // Redirect back to the quiz management page
     }
 
     // Display the form to edit an existing quiz
