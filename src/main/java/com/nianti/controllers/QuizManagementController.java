@@ -21,6 +21,9 @@ public class QuizManagementController {
     @Autowired
     private QuizDao quizDao;
 
+    @Autowired
+    private QuestionDao questionDao;
+
     // Display the quiz management page
     @GetMapping
     public String showQuizManagementPage(Model model) {
@@ -91,13 +94,15 @@ public class QuizManagementController {
     }
 
     @GetMapping("/{quizId}")
-    public String detailsPage(@PathVariable int quizId, Model model)
-    {
-        // Get quiz by Id
+    public String detailsPage(@PathVariable int quizId, Model model) {
+        // Fetch quiz and its questions
         Quiz quiz = quizDao.getQuizById(quizId);
-        model.addAttribute("quiz", quiz);
+        List<Question> questions = questionDao.getQuestionsByQuizId(quizId);
 
-        return "quiz-management/details";
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("questions", questions);
+
+        return "quiz-management/details";  // Return quiz details with associated questions
     }
 
 

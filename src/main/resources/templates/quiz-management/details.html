@@ -8,45 +8,35 @@
 <!-- Include the navigation bar -->
 <div th:replace="fragments/navigation :: nav"></div>
 
-<!-- Main container for quiz management -->
-<div class="container mt-4 quiz-container">
+<!-- Page title -->
+<h1 class="page-title">Quiz Details</h1>
 
-    <!-- Page title -->
-    <h1 class="page-title">Quiz Details</h1>
-
-
-    <!-- List of questions associated with this quiz -->
+<!-- Question list container -->
+<div class="question-container">
     <div class="question-list">
-        <div class="card mb-2" th:each="question : ${quiz.questions}">
-            <div class="card-header">
-            <span th:text="'Question ' + ${question.questionNumber} + ': ' + ${question.questionText}">
+        <!-- Iterate over each question -->
+        <div class="question-card" th:each="question : ${questions}">
+            <!-- Question Header -->
+            <div class="question-card-header">
+                <span th:text="'Question ' + ${question.questionNumber} + ': ' + ${question.questionText}"></span>
+            </div>
 
-        </span>
+            <!-- Answers List -->
+            <div class="card-body">
+                <ul class="answer-list">
+                    <li class="answer-item" th:each="answer : ${question.answers}">
+                        <span th:text="${answer.answerText}"></span>
+                    </li>
+                </ul>
+
+                <!-- Edit button for the question -->
+                <div class="edit-question">
+                    <a th:href="@{/questions/edit/{id}(id=${question.questionId})}" class="btn edit-btn">Edit Question</a>
+                </div>
             </div>
         </div>
     </div>
-
-<!--    <div th:each="question : ${quiz.questions}">-->
-<!--        <span th:text="'Question ' + ${question.questionNumber} + ': ' + ${question.questionText}"></span>-->
-<!--    </div>-->
-
-
-
 </div>
 
 </body>
 </html>
-
-<!--    <div id="quizContent">-->
-<!--        <h2 class="quiz-question" th:text="${question.questionText}">Question text will go here</h2>-->
-<!--        <ul class="quiz-answers">-->
-<!--            &lt;!&ndash; Loop through each answer and display it as a radio button with label &ndash;&gt;-->
-<!--            <li class="quiz-answer" th:each="answer : ${question.answers}">-->
-<!--                <input type="radio" th:attr="name='answer', value=${answer.answerId}, data-is-correct=${answer.isCorrect}"-->
-<!--                       id="answer-${answer.answerId}" class="quiz-radio">-->
-<!--                <label class="quiz-label" th:for="'answer-' + ${answer.answerId}" th:text="${answer.answerText}"></label>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--        &lt;!&ndash; The "Next" button will be hidden until an answer is selected &ndash;&gt;-->
-<!--        <button id="nextButton" class="quiz-next-btn" style="display:none;">Next</button>-->
-<!--    </div>-->

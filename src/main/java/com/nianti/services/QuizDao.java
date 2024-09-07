@@ -1,5 +1,8 @@
 package com.nianti.services;
 
+import com.nianti.models.Answer;
+import com.nianti.services.AnswerDao;
+import com.nianti.models.Question;
 import com.nianti.models.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +17,7 @@ import java.util.List;
 public class QuizDao
 {
     private JdbcTemplate jdbcTemplate;
+    private AnswerDao answerDao;
 
     @Autowired
     public QuizDao(DataSource dataSource)
@@ -67,6 +71,32 @@ public class QuizDao
 
         return null;
     }
+
+    // Fetch questions for a specific quiz
+    private List<Question> getQuestionsByQuizId(int quizId) {
+        List<Question> questions = new ArrayList<>();
+        String sql = """
+            SELECT question_id, question_text, question_number
+            FROM question
+            WHERE quiz_id = ?
+        """;
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId);
+
+        while (rowSet.next()) {
+            Question question = new Question();
+            question.setQuestionId(rowSet.getInt("question_id"));
+            question.setQuestionText(rowSet.getString("question_text"));
+            question.setQuestionNumber(rowSet.getInt("question_number"));
+
+            // Fetch answers for each question using AnswerDao
+            question.setAnswers(answerDao.getAnswersByQuestionId(question.getQuestionId()));
+
+            questions.add(question);
+        }
+
+        return questions;
+    }
+
 
     // Add a new quiz
     public void addQuiz(Quiz quiz) {
