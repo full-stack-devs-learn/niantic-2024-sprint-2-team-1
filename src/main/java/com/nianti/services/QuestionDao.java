@@ -49,7 +49,7 @@ public class QuestionDao {
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
             FROM question
-            WHERE quiz_id = ? AND question_id = ?
+            WHERE quiz_id = ? AND question_number = ?
         """;
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, quizId, questionId);
