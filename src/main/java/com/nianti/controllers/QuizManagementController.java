@@ -51,25 +51,6 @@ public class QuizManagementController {
         return "quiz-management/add_success";  // Redirect back to the quiz management page
     }
 
-//    // Display the form to edit an existing quiz
-//    @GetMapping("/edit/{quizId}")
-//    public String showEditQuizForm(@PathVariable int quizId, Model model) {
-//        Quiz quiz = quizDao.getQuizById(quizId);
-//        model.addAttribute("quiz", quiz);
-//        return "quiz-management/edit";  // View for the edit quiz form
-//    }
-//
-//    // Process the form submission for editing a quiz
-//    @PostMapping("/edit/{quizId}")
-//    public String editQuiz(@PathVariable int quizId, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "quiz-management/edit";  // Return form view if validation errors occur
-//        }
-//
-//        quizDao.editQuiz(quiz);  // Update the quiz
-//        return "redirect:/quizzes";  // Redirect back to the quiz management page
-//    }
-
     @PostMapping("/toggle-live/{quizId}")
     public String toggleQuizLiveStatus(@PathVariable int quizId, RedirectAttributes redirectAttributes) {
 
@@ -123,19 +104,47 @@ public class QuizManagementController {
             return "quiz-management/add-question";  // Return form view if there are validation errors
         }
 
-        // Save the new question to the database
+        // Ensure the question is associated with the correct quiz
+        question.setQuizId(quizId);
         questionDao.addQuestion(question);
-        return "redirect:/quizzes/{quizId}";  // Redirect to the quiz details page
+
+        // Redirect to the quiz details page
+        return "redirect:/quizzes/" + quizId;
     }
 
 
-    // Delete a question by its ID
     @PostMapping("/{quizId}/questions/delete/{questionId}")
-    public String deleteQuestion(@PathVariable int quizId, @PathVariable int questionId, RedirectAttributes redirectAttributes) {
+    public String deleteQuestion(@PathVariable int quizId, @PathVariable int questionId, @RequestParam(required = false) String returnUrl, RedirectAttributes redirectAttributes) {
         questionDao.deleteQuestion(questionId);  // Delete the question by ID
         redirectAttributes.addFlashAttribute("message", "Question deleted successfully.");
-        return "redirect:/quizzes/";
+
+        // Redirect back to the previous page if returnUrl is provided
+        if (returnUrl != null) {
+            return "redirect:" + returnUrl;
+        }
+
+        // Default redirect to the quiz details page
+        return "redirect:/quizzes/" + quizId;
     }
+
+    //    // Display the form to edit an existing quiz
+//    @GetMapping("/edit/{quizId}")
+//    public String showEditQuizForm(@PathVariable int quizId, Model model) {
+//        Quiz quiz = quizDao.getQuizById(quizId);
+//        model.addAttribute("quiz", quiz);
+//        return "quiz-management/edit";  // View for the edit quiz form
+//    }
+//
+//    // Process the form submission for editing a quiz
+//    @PostMapping("/edit/{quizId}")
+//    public String editQuiz(@PathVariable int quizId, @Valid @ModelAttribute("quiz") Quiz quiz, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "quiz-management/edit";  // Return form view if validation errors occur
+//        }
+//
+//        quizDao.editQuiz(quiz);  // Update the quiz
+//        return "redirect:/quizzes";  // Redirect back to the quiz management page
+//    }
 
 
 

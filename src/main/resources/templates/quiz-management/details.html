@@ -3,7 +3,6 @@
 <head th:replace="fragments/head :: head"></head>
 
 <body>
-
 <!-- Include the navigation bar -->
 <div th:replace="fragments/navigation :: nav"></div>
 
@@ -35,15 +34,13 @@
                 </ul>
 
                 <!-- Delete button for the question -->
-                <!-- Delete button for the question -->
                 <div class="delete-question">
                     <!-- Delete button with confirmation -->
-                    <form th:action="@{/questions/delete/{id}(id=${question.questionId})}" method="post" onsubmit="return confirm('Are you sure you want to delete this AWESOME question? This action cannot be undone.')">
+                    <form th:action="@{/quizzes/{quizId}/questions/delete/{questionId}(quizId=${quiz.quizId}, questionId=${question.questionId})}" method="post" onsubmit="return confirm('Are you sure you want to delete this AWESOME question? This action cannot be undone.')">
                         <button type="submit" class="delete-button">Delete Question</button>
                     </form>
-
-
                 </div>
+
             </div>
         </div>
     </div>

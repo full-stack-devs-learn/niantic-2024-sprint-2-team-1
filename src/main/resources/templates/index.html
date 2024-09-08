@@ -11,15 +11,19 @@
 <!-- Include navigation -->
 <div th:replace="fragments/navigation :: nav"></div>
 
-<!-- Container for quiz cards -->
+<!-- Container for quiz cards carousel -->
 <div class="home-page-quiz-container">
     <h1 class="home-page-title">Available Quizzes</h1>
-    <div class="home-page-quiz-list">
-        <!-- Each quiz rendered as a card -->
-        <div class="home-page-card mb-2" th:each="quiz: ${quizzes}">
-            <a th:href="@{/quiz/{id}(id=${quiz.quizId})}" class="home-page-card-link" th:if="${quiz.isLive}">
-                <div class="home-page-card-header" th:text="${quiz.title}"></div>
-            </a>
+
+    <!-- Carousel wrapper -->
+    <div class="carousel-wrapper">
+        <div class="home-page-quiz-list">
+            <!-- Each quiz rendered as a card, only if the quiz is live -->
+            <div class="home-page-card mb-2" th:each="quiz : ${quizzes}" th:if="${quiz.isLive}">
+                <a th:href="@{/quiz/{id}(id=${quiz.quizId})}" class="home-page-card-link">
+                    <div class="home-page-card-header" th:text="${quiz.title}"></div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
