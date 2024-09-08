@@ -36,6 +36,11 @@ Once we gathered all the information through debugging and testing we were able 
 ![A block of code from the QuestionDAO class](RobinCodeBlock.png)
 Modifying this SQL query allowed us to make code we had already written more dynamic and robust!
 
+**Karen's favorite block of code:**
+![A block of code from the Quiz.js](KarenCodeBlock.png)
+Created a function that allowed users to select an answer and dynamically change the load out of the page!
+
+
 ## Retrospective
 
 **What did you learn from the project?** 
