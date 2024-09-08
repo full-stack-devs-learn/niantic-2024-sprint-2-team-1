@@ -13,7 +13,10 @@ Trivio is a fun and interactive quiz application where users can test their know
 
 
 ## Development Process
-
+To plan our development, we used a Trello kanban board to delegate tasks, an entity relationships diagram to organize database queries, and a step-by-step flowchart to showcase communication between the front-end and back-end.
+![Entity Relationships Diagram](entityRelationships.png)
+![Trello Diagram](trello_board.png)
+![Step Diagram](Step_Diagram.png)
 
 ## Challenges
 
@@ -28,6 +31,11 @@ In order to understand the problem we added many debugging points to gather more
 **What was the final solution?**
 
 Once we gathered all the information through debugging and testing we were able to work out all of our syntax, formatting, and logic corrections. 
+
+**Robin's favorite block of code:**
+![A block of code from the QuestionDAO class](RobinCodeBlock.png)
+Modifying this SQL query allowed us to make code we had already written more dynamic and robust!
+
 ## Retrospective
 
 **What did you learn from the project?** 

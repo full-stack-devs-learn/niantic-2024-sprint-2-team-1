@@ -10,7 +10,7 @@ public class Quiz
 
     private ArrayList<Question> questions = new ArrayList<>();
 
-
+    // Declare constructors:
     public Quiz()
     {
     }
@@ -22,6 +22,7 @@ public class Quiz
         this.isLive = isLive;
     }
 
+    // Declare getters and setters:
     public int getQuizId()
     {
         return quizId;

@@ -24,7 +24,7 @@ public class QuestionDao
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // Fetch all questions by quizId **Unused?
+    // Fetch all questions by quizId
     public List<Question> getQuestionsByQuizId(int quizId)
     {
         List<Question> questions = new ArrayList<>();
@@ -47,7 +47,7 @@ public class QuestionDao
         return questions;
     }
 
-    // Fetch a specific question by quizId and questionId
+    // Fetch a specific question by quiz_id and question_number:
     public Question getQuestion(int quizId, int questionNumber)
     {
         String sql = """
@@ -71,7 +71,7 @@ public class QuestionDao
         return null;
     }
 
-    // Map SQL row to a Question object
+    // Map SQL row to a Question object:
     private Question mapRowToQuestion(SqlRowSet row)
     {
         int id = row.getInt("question_id");
@@ -107,7 +107,7 @@ public class QuestionDao
         return answers;
     }
 
-    // get total amount of questions from database
+    // get total amount of questions from database:
     public int getTotalQuestionsByQuizId(int quizId)
     {
         String sql = "SELECT COUNT(*) FROM question WHERE quiz_id = ?";
@@ -116,7 +116,7 @@ public class QuestionDao
 
 
 
-    // Delete a question by its questionId
+    // Delete a question by its questionId:
     public void deleteQuestion(int questionId)
     {
         // Delete the answers associated with the question first to avoid foreign key issues

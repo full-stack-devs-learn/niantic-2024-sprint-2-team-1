@@ -22,6 +22,7 @@ public class AnswerDao
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // Get all answers for a given question:
     public List<Answer> getAnswersByQuestionId(int questionId)
     {
         String sql = """
@@ -44,7 +45,7 @@ public class AnswerDao
         return answers;
     }
 
-    // Map a row from the result set to an Answer object
+    // Map a row from the result set to an Answer object:
     private Answer mapRowToAnswer(SqlRowSet rowSet) {
         Answer answer = new Answer();
         answer.setAnswerId(rowSet.getInt("answer_id"));

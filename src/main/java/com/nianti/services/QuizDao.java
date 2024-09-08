@@ -25,6 +25,7 @@ public class QuizDao
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // Return every quiz in database:
     public List<Quiz> getAllQuizzes()
     {
         ArrayList<Quiz> quizzes = new ArrayList<>();
@@ -44,6 +45,7 @@ public class QuizDao
         return quizzes;
     }
 
+    // Map a row to a Quiz object:
     private Quiz mapRowToQuiz(SqlRowSet row)
     {
         int id = row.getInt("quiz_id");
@@ -53,6 +55,7 @@ public class QuizDao
         return new Quiz(id, title, isLive);
     }
 
+    // Get a specific quiz:
     public Quiz getQuizById(int quizId) {
 
         // string sql WHERE quiz_id = ?
