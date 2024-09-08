@@ -12,9 +12,9 @@
     <!-- Page title -->
     <h1 class="page-title">Quiz Details</h1>
 
-    <!-- Add More Questions Button -->
+    <!-- Add More Questions Button; hidden for now until add question functionality can be completed in a later version -->
     <div class="add-question-section">
-        <a th:href="@{/quizzes/{id}/add-question(id=${quiz.quizId})}" class="add-question-button">Add More Questions</a>
+        <a th:href="@{/quizzes/{id}/add-question(id=${quiz.quizId})}" class="add-question-button" hidden>Add More Questions</a>
     </div>
 
     <div class="question-list">

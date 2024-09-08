@@ -13,17 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class QuestionDao {
+public class QuestionDao
+{
 
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public QuestionDao(DataSource dataSource) {
+    public QuestionDao(DataSource dataSource)
+    {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     // Fetch all questions by quizId **Unused?
-    public List<Question> getQuestionsByQuizId(int quizId) {
+    public List<Question> getQuestionsByQuizId(int quizId)
+    {
         List<Question> questions = new ArrayList<>();
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
@@ -45,7 +48,8 @@ public class QuestionDao {
     }
 
     // Fetch a specific question by quizId and questionId
-    public Question getQuestion(int quizId, int questionNumber) {
+    public Question getQuestion(int quizId, int questionNumber)
+    {
         String sql = """
             SELECT question_id, quiz_id, question_number, question_text
             FROM question
@@ -68,7 +72,8 @@ public class QuestionDao {
     }
 
     // Map SQL row to a Question object
-    private Question mapRowToQuestion(SqlRowSet row) {
+    private Question mapRowToQuestion(SqlRowSet row)
+    {
         int id = row.getInt("question_id");
         int quiz = row.getInt("quiz_id");
         int number = row.getInt("question_number");
@@ -78,7 +83,8 @@ public class QuestionDao {
     }
 
     // Fetch all answers for a given questionId
-    public List<Answer> getAnswersByQuestionId(int questionId) {
+    public List<Answer> getAnswersByQuestionId(int questionId)
+    {
         String sql = """
             SELECT answer_id, question_id, answer_text, is_correct
             FROM answer
@@ -88,7 +94,8 @@ public class QuestionDao {
         List<Answer> answers = new ArrayList<>();
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, questionId);
 
-        while (rowSet.next()) {
+        while (rowSet.next())
+        {
             Answer answer = new Answer();
             answer.setAnswerId(rowSet.getInt("answer_id"));
             answer.setQuestionId(rowSet.getInt("question_id"));
@@ -101,7 +108,8 @@ public class QuestionDao {
     }
 
     // get total amount of questions from database
-    public int getTotalQuestionsByQuizId(int quizId) {
+    public int getTotalQuestionsByQuizId(int quizId)
+    {
         String sql = "SELECT COUNT(*) FROM question WHERE quiz_id = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, quizId);
     }
@@ -109,7 +117,8 @@ public class QuestionDao {
 
 
     // Delete a question by its questionId
-    public void deleteQuestion(int questionId) {
+    public void deleteQuestion(int questionId)
+    {
         // Delete the answers associated with the question first to avoid foreign key issues
         String deleteAnswersSql = "DELETE FROM answer WHERE question_id = ?";
         jdbcTemplate.update(deleteAnswersSql, questionId);
@@ -120,7 +129,8 @@ public class QuestionDao {
     }
 
     // Method to add a new question
-    public void addQuestion(Question question) {
+    public void addQuestion(Question question)
+    {
         String sql = """
             INSERT INTO question (quiz_id, question_number, question_text)
             VALUES (?, ?, ?);
@@ -129,16 +139,16 @@ public class QuestionDao {
         // Insert the question into the database
         jdbcTemplate.update(sql, question.getQuizId(), question.getQuestionNumber(), question.getQuestionText());
 
-        // If the question has answers, insert those as well
-        if (question.getAnswers() != null && !question.getAnswers().isEmpty()) {
-            for (Answer answer : question.getAnswers()) {
+        // Insert answers as well
+            for (Answer answer : getAnswersByQuestionId(question.getQuestionId()))
+            {
                 addAnswer(answer, question.getQuestionId());
             }
-        }
     }
 
     // Method to add an answer (associated with a question)
-    public void addAnswer(Answer answer, int questionId) {
+    public void addAnswer(Answer answer, int questionId)
+    {
         String sql = """
             INSERT INTO answer (question_id, answer_text, is_correct)
             VALUES (?, ?, ?);

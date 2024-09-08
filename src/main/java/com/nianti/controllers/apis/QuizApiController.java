@@ -15,17 +15,21 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")  // Base path for API endpoints
-public class QuizApiController {
+public class QuizApiController
+{
 
     @Autowired
     private QuestionDao questionDao;
 
     // API to load the question for the given quiz and question number in JSON format
     @GetMapping("/quiz/{quizId}/question/{questionNumber}")
-    public ResponseEntity<Question> getQuestion(@PathVariable int quizId, @PathVariable int questionNumber) {
+    public ResponseEntity<Question> getQuestion(@PathVariable int quizId, @PathVariable int questionNumber)
+    {
         Question question = questionDao.getQuestion(quizId, questionNumber);
 
-        if (question == null) {
+        // Return error if question not found:
+        if (question == null)
+        {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
@@ -34,7 +38,8 @@ public class QuizApiController {
 
     // API to get the total number of questions for a given quiz
     @GetMapping("/quiz/{quizId}/total-questions")
-    public ResponseEntity<Map<String, Integer>> getTotalQuestions(@PathVariable int quizId) {
+    public ResponseEntity<Map<String, Integer>> getTotalQuestions(@PathVariable int quizId)
+    {
         int totalQuestions = questionDao.getTotalQuestionsByQuizId(quizId);
         Map<String, Integer> response = new HashMap<>();
         response.put("totalQuestions", totalQuestions);
