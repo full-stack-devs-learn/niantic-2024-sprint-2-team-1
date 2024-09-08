@@ -22,23 +22,23 @@
     <!-- List of quizzes with options to edit, delete, and manage live status -->
     <div class="quiz-list">
         <div class="card mb-2" th:each="quiz : ${quizzes}">
-            <!-- CHANGE THIS LINK TO THE DETAILS PAGE -->
-            <a th:href="@{/quizzes/{id}(id=${quiz.quizId})}" class="card-link">
-                <div class="card-header" th:text="${quiz.title}"></div>
-            </a>
+            <div class="quiz-title-container">
+                <!-- CHANGE THIS LINK TO THE DETAILS PAGE -->
+                <a th:href="@{/quizzes/{id}(id=${quiz.quizId})}" class="card-link">
+                    <div class="card-header" th:text="${quiz.title}"></div>
+                </a>
 
-            <!-- Show quiz live status with dynamic color -->
-            <div class="status-badge" th:if="${quiz.isLive}">
-                <span class="badge badge-success">Live</span>
-            </div>
-            <div class="status-badge" th:if="${!quiz.isLive}">
-                <span class="badge badge-danger">Disabled</span>
+                <!-- Show quiz live status with dynamic color next to title -->
+                <div class="status-badge" th:if="${quiz.isLive}">
+                    <span class="badge badge-success">Live</span>
+                </div>
+                <div class="status-badge" th:if="${!quiz.isLive}">
+                    <span class="badge badge-danger">Disabled</span>
+                </div>
             </div>
 
             <!-- Toggle live status -->
             <div class="card-body">
-
-                <!-- Toggle Live Status -->
                 <form th:action="@{/quizzes/toggle-live/{id}(id=${quiz.quizId})}" method="post" style="display:inline;">
                     <button type="submit" class="btn nav-link" th:classappend="${quiz.isLive} ? 'btn-danger' : 'btn-success'"
                             th:text="${quiz.isLive} ? 'Disable' : 'Enable'"></button>

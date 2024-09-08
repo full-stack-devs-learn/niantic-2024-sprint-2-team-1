@@ -6,31 +6,95 @@
 }
 
 /* Body styling */
-html, body {
+body {
     background-image: url('/images/main-background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'Press Start 2P', cursive;  /* Pixel art font */
-    min-height: 100%;
-    padding-top: 80px;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     background-attachment: fixed;
+    display: flex;               /* Enable Flexbox */
+    justify-content: center;     /* Center horizontally */
+    align-items: center;         /* Center vertically */
+    padding: 100px;            /* Ensure space between navbar and content */
 }
 
-/* Navigation Bar Styling */
+/* HOME PAGE STYLING */
+.home-page-quiz-container {
+    max-width: 700px;  /* Adjust the max-width for desired width */
+    width: 100%;  /* Keep this for responsiveness */
+    margin: 0 auto;  /* Center the container horizontally */
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.8);  /* Keep the background color */
+    border-radius: 10px;  /* Keep the border-radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Keep the box shadow */
+    text-align: center;  /* Keep the text centered */
+}
 
+/* Styling for the home page title */
+.home-page-title {
+    font-size: 24px;
+    margin-bottom: 30px;  /* Add space between the title and quiz list */
+}
+
+/* Home page quiz list styling */
+.home-page-quiz-list {
+    display: flex;
+    flex-wrap: column
+    width: 100%;
+    gap: 20px;
+    justify-content: center;  /* Ensure the quiz cards are centered */
+}
+
+/* Home page card styling */
+.home-page-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;  /* Make each card take up 80% of the container's width */
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    margin: 0 auto;  /* Center each card within the quiz list */
+}
+
+.home-page-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    color: #28a745;
+}
+
+/* Home page card header styling */
+.home-page-card-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;  /* Center the text inside each card */
+}
+
+/* Remove underline from quiz title links */
+.home-page-card-link {
+    text-decoration: none;  /* Remove the underline */
+    color: inherit;  /* Keep the original text color */
+}
+
+
+/* Navigation Bar Styling */
 .navbar-container {
     position: fixed;
     top: 0;
     width: 100%;
     background-color: rgba(248, 249, 250, 0.5);  /* Light gray background with transparency */
-    padding: 16px 32px;  /* Add padding for spacing */
+    padding: 16px 32px;
     display: flex;
-    justify-content: flex-start;  /* Align items to the left */
-    align-items: center;  /* Vertically center the logo and buttons */
+    justify-content: flex-start;
+    align-items: center;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -70,11 +134,59 @@ html, body {
     transform: translateY(-3px);  /* Lift the button slightly on hover */
 }
 
+/* Align quiz title and status badge centrally */
+.quiz-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Center the title and status badge */
+    gap: 15px;  /* Adjust gap between title and status badge */
+    padding: 10px 0;  /* Add some vertical padding */
+}
+
+/* Page title styling */
+.page-title {
+    font-size: 32px;
+    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Card header styling */
+.card-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;  /* Center the text inside the card header */
+    width: 100%;  /* Ensure the header spans the full width */
+}
+
+/* Status badge styling */
+.status-badge {
+    display: inline-block;
+}
+
+/* Success and danger badges */
+.badge-success {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
 /* Styling for the quiz container */
 .quiz-container {
-    max-width: 800px;
-    margin: 200px auto;
+    max-width: 1000px;
+    width: 100%;
+    margin: 50px auto;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -82,17 +194,11 @@ html, body {
     text-align: center;
 }
 
-/* Page title */
-.page-title {
-    font-size: 32px;
-    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
-    margin-bottom: 20px;
-    color: #333;
-}
-
 /* Styling for the quiz list container */
 .quiz-list {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 /* Card styling */
@@ -111,38 +217,23 @@ html, body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Card header styling */
-.card-header {
-    background-color: #f8f9fa;
-    padding: 20px;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
-}
-
-/* Card link styling */
-.card-link {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Add a smooth transition for hover effects */
-a:hover .card-header {
-    color: #28a745;  /* Change the text color on hover */
-}
-
-
-/* General styling for the quiz content FRAGMENT */
+/* General styling for the quiz content box */
 #quizContent {
-    background-color: rgba(255, 255, 255, 0.8);  /* Light background with slight transparency */
+    max-width: 900px;  /* Reduced max width for better balance */
+    width: 100%;  /* Take the full width of the parent container */
+    margin: 0 auto;  /* Center the content */
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
-    max-width: 600px;
-    margin: 40px auto;
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;  /* Keep the text left-aligned within the centered box */
+}
+
+/* Quiz title styling to ensure alignment */
+.quiz-title {
+    max-width: 900px;  /* Match the reduced width of the quiz content */
+    margin: 0 auto;  /* Center the title */
+    text-align: center;  /* Align the text */
 }
 
 /* Styling for the quiz question */
@@ -151,21 +242,15 @@ a:hover .card-header {
     font-size: 20px;
     color: #333;
     margin-bottom: 20px;
-}
-
-/* Styling for the answer list */
-.quiz-answers {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    text-align: center;  /* Ensure the question is centered */
 }
 
 /* Styling for each answer item */
 .quiz-answer {
-    display: flex;
+    display: block;
     align-items: center;
     margin-bottom: 15px;
-    text-align: left;
+    text-align: left;  /* Keep answers aligned to the left */
 }
 
 /* Styling for the radio buttons */
@@ -203,107 +288,17 @@ a:hover .card-header {
     transform: translateY(-3px);  /* Lift the button slightly on hover */
 }
 
-.badge-success {
-    background-color: #28a745;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.badge-danger {
-    background-color: #dc3545;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-/* Condensed Question container styling */
-.question-container {
-    margin-top: 80px; /* Space below the navbar */
-    padding: 20px;
-    max-width: 1200px;  /* Condense the container */
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(255, 255, 255, 0.8);  /* Slight white background for readability */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Subtle shadow for depth */
-    text-align: left;
-    padding-bottom: 500px;
-}
-
-/* Page title styling */
-.question-details-title {
-    font-size: 32px;
-    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Quiz title */
-.quiz-title {
-    font-size: 24px;
-    font-family: 'Press Start 2P', cursive;
-    margin-bottom: 40px;
-    color: #666;
-}
-
-/* Condensed Question container styling */
-.question-container {
-    margin-top: 80px; /* Space below the navbar */
-    padding: 20px;
-    max-width: 1200px;  /* Condensed width for the container */
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(255, 255, 255, 0.8);  /* Slight white background for readability */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Subtle shadow for depth */
-    text-align: left;
-    padding-bottom: 50px; /* Adjusted padding at the bottom */
-    min-height: 100vh; /* Ensure it takes up full viewport height */
-}
-
-/* Page title styling */
-.question-details-title {
-    font-size: 32px;
-    font-family: 'Press Start 2P', cursive;  /* Pixel art font */
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Quiz title styling */
-.quiz-title {
-    font-size: 24px;
-    font-family: 'Press Start 2P', cursive;
-    margin-bottom: 40px;
-    color: #666;
-}
-
-/* Question list container styling */
-.question-list {
-    margin-top: 20px;
-}
-
-/* Styling for the question and answers container (card) */
-.question-card {
-    background-color: white;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for question headers */
-.question-card-header {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+/* Styling for correct answers */
+.correct-answer {
+    background-color: #d4edda;  /* Light green for correct answer */
+    border-left: 4px solid #28a745;  /* Darker green for left border */
 }
 
 /* Answer list styling */
 .answer-list {
     list-style-type: none;  /* Remove bullet points */
     padding-left: 0;
+    margin: 0;
 }
 
 /* Styling for each answer item */
@@ -314,17 +309,197 @@ a:hover .card-header {
     margin-bottom: 10px;
 }
 
-/* Highlight correct answers */
-.correct-answer {
-    background-color: #d4edda;  /* Light green for correct answer */
-    border-left: 4px solid #28a745;  /* Darker green for left border */
+/* Styling for the quiz text container */
+#quizText {
+    display: flex;                /* Enable Flexbox for centering */
+    justify-content: center;      /* Center horizontally */
+    align-items: center;          /* Center vertically */
+    flex-direction: column;       /* Ensure content is stacked vertically */
+    height: 100%;                 /* Take up the full height of the parent container */
+    text-align: center;           /* Center the text inside the container */
+    margin: 20px auto;            /* Add some margin for spacing */
 }
 
-/* Page title styling */
-.page-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+
+/* Remove underline from quiz title links */
+.card-link {
+    text-decoration: none;
+    color: inherit;  /* Keep the original text color */
 }
+
+/* Add a smooth transition for hover effects */
+.card-link:hover .card-header {
+    color: #28a745;  /* Optional: Change the text color on hover */
+    text-decoration: none;  /* Ensure no underline appears on hover */
+}
+
+/* Add spacing around the Disable/Enable button */
+.btn {
+    margin-top: 10px;  /* Space above the button */
+    margin-bottom: 20px;  /* Space below the button */
+    padding: 10px 15px;  /* Button padding for a consistent look */
+    display: inline-block;  /* Ensure it doesn't stretch horizontally */
+}
+
+
+/* QUIZ MANAGEMENT DETAILS PAGE */
+
+.question-detail-container {
+    max-width: 1000px;  /* Limit the width of the container */
+    margin: 0 auto;  /* Center the container */
+    padding: 20px;
+    margin-top: 120px;
+    margin-bottom: 100px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 400px;  /* Set the max height of the container */
+    overflow-y: auto;   /* Enable vertical scrolling if content exceeds the height */
+    padding-bottom: 40px;
+}
+
+
+/* Question list container */
+.question-list {
+    margin-top: 20px;
+}
+
+/* Card styling for question and answer */
+.question-card {
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Question header styling */
+.question-card-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Add More Questions Section */
+.add-question-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+/* Styling for the Add More Questions button */
+.add-question-button {
+    background-color: #28a745;  /* Green background */
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
+}
+
+.add-question-button:hover {
+    background-color: #218838;  /* Darker green on hover */
+    color: #fff;
+}
+
+
+/* Delete Button Styling */
+.delete-button {
+    background-color: #dc3545;  /* Red background */
+    border: 2px solid #dc3545;  /* Red border */
+    border-radius: 30px;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;  /* Darker red on hover */
+    color: #fff;
+    transform: translateY(-3px);  /* Slight lift on hover */
+}
+/* ADD NEW QUIZ FORM STYLING */
+
+/* Form Section */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;  /* Consistent with the other page widths */
+    margin: 0 auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9);  /* Maintain same background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Form Label Styling */
+.form-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Input Styling */
+.form-control {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;  /* Consistent with other inputs */
+}
+
+/* Specific Button Styling */
+.save-button {
+    background-color: #d4edda;  /* Light green background */
+    border: 2px solid #28a745;
+    color: #000;
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-button {
+    background-color: #ffc107;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effects for buttons */
+.save-button:hover {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.cancel-button:hover {
+    background-color: #e0a800;
+    color: #fff;
+}
+
+
+
+
+

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head"></head>
-<link rel="stylesheet" type="text/css" href="/css/style.css">
 
 <body>
 
 <!-- Include the navigation bar -->
 <div th:replace="fragments/navigation :: nav"></div>
 
-<!-- Page title -->
-<h1 class="page-title">Quiz Details</h1>
-
 <!-- Question list container -->
-<div class="question-container">
+<div class="question-detail-container">
+
+    <!-- Page title -->
+    <h1 class="page-title">Quiz Details</h1>
+
+    <!-- Add More Questions Button -->
+    <div class="add-question-section">
+        <a th:href="@{/quizzes/{id}/add-question(id=${quiz.quizId})}" class="add-question-button">Add More Questions</a>
+    </div>
+
     <div class="question-list">
         <!-- Iterate over each question -->
         <div class="question-card" th:each="question : ${questions}">
@@ -24,14 +29,20 @@
             <!-- Answers List -->
             <div class="card-body">
                 <ul class="answer-list">
-                    <li class="answer-item" th:each="answer : ${question.answers}">
+                    <li class="answer-item" th:each="answer : ${question.answers}" th:classappend="${answer.isCorrect} ? 'correct-answer' : ''">
                         <span th:text="${answer.answerText}"></span>
                     </li>
                 </ul>
 
-                <!-- Edit button for the question -->
-                <div class="edit-question">
-                    <a th:href="@{/questions/edit/{id}(id=${question.questionId})}" class="btn edit-btn">Edit Question</a>
+                <!-- Delete button for the question -->
+                <!-- Delete button for the question -->
+                <div class="delete-question">
+                    <!-- Delete button with confirmation -->
+                    <form th:action="@{/questions/delete/{id}(id=${question.questionId})}" method="post" onsubmit="return confirm('Are you sure you want to delete this AWESOME question? This action cannot be undone.')">
+                        <button type="submit" class="delete-button">Delete Question</button>
+                    </form>
+
+
                 </div>
             </div>
         </div>

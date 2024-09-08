@@ -106,4 +106,47 @@ public class QuestionDao {
         return jdbcTemplate.queryForObject(sql, Integer.class, quizId);
     }
 
+
+
+    // Delete a question by its questionId
+    public void deleteQuestion(int questionId) {
+        // Delete the answers associated with the question first to avoid foreign key issues
+        String deleteAnswersSql = "DELETE FROM answer WHERE question_id = ?";
+        jdbcTemplate.update(deleteAnswersSql, questionId);
+
+        // Now delete the question
+        String deleteQuestionSql = "DELETE FROM question WHERE question_id = ?";
+        jdbcTemplate.update(deleteQuestionSql, questionId);
+    }
+
+    // Method to add a new question
+    public void addQuestion(Question question) {
+        String sql = """
+            INSERT INTO question (quiz_id, question_number, question_text)
+            VALUES (?, ?, ?);
+        """;
+
+        // Insert the question into the database
+        jdbcTemplate.update(sql, question.getQuizId(), question.getQuestionNumber(), question.getQuestionText());
+
+        // If the question has answers, insert those as well
+        if (question.getAnswers() != null && !question.getAnswers().isEmpty()) {
+            for (Answer answer : question.getAnswers()) {
+                addAnswer(answer, question.getQuestionId());
+            }
+        }
+    }
+
+    // Method to add an answer (associated with a question)
+    public void addAnswer(Answer answer, int questionId) {
+        String sql = """
+            INSERT INTO answer (question_id, answer_text, is_correct)
+            VALUES (?, ?, ?);
+        """;
+
+        // Insert the answer into the database
+        jdbcTemplate.update(sql, questionId, answer.getAnswerText(), answer.isCorrect());
+    }
 }
+
+

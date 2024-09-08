@@ -105,7 +105,42 @@ public class QuizManagementController {
         return "quiz-management/details";  // Return quiz details with associated questions
     }
 
+    // Add Question
+    @GetMapping("/{quizId}/add-question")
+    public String showAddQuestionForm(@PathVariable int quizId, Model model) {
+        // Create a new Question object and associate it with the current quiz
+        Question question = new Question();
+        question.setQuizId(quizId);
+
+        // Add the question to the model for the form
+        model.addAttribute("question", question);
+        return "quiz-management/add-question";  // The view for the question form
+    }
+
+    @PostMapping("/{quizId}/add-question")
+    public String addQuestion(@PathVariable int quizId, @Valid @ModelAttribute("question") Question question, BindingResult result) {
+        if (result.hasErrors()) {
+            return "quiz-management/add-question";  // Return form view if there are validation errors
+        }
+
+        // Save the new question to the database
+        questionDao.addQuestion(question);
+        return "redirect:/quizzes/{quizId}";  // Redirect to the quiz details page
+    }
 
 
-}
+    // Delete a question by its ID
+    @PostMapping("/{quizId}/questions/delete/{questionId}")
+    public String deleteQuestion(@PathVariable int quizId, @PathVariable int questionId, RedirectAttributes redirectAttributes) {
+        questionDao.deleteQuestion(questionId);  // Delete the question by ID
+        redirectAttributes.addFlashAttribute("message", "Question deleted successfully.");
+        return "redirect:/quizzes/";
+    }
+
+
+
+    }
+
+
+
 

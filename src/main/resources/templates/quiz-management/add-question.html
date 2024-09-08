@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+<!-- Navigation bar -->
+<div th:replace="fragments/navigation :: nav"></div>
+
+<!-- Main content area -->
+<div class="question-container">
+    <h1 class="page-title">Add Question</h1>
+
+    <form action="#" th:object="${question}" method="post" class="form-section">
+        <!-- Question Text -->
+        <div class="form-group">
+            <label th:for="*{questionText}" class="form-label">Question Text</label>
+            <input class="form-control" type="text" th:field="*{questionText}" placeholder="Enter question" required>
+        </div>
+
+        <!-- Add Answers (Assuming 4 fixed answers) -->
+        <div class="form-group">
+            <label class="form-label">Answers</label>
+            <input class="form-control" type="text" name="answer1" placeholder="Enter Answer 1" required>
+            <input class="form-control" type="text" name="answer2" placeholder="Enter Answer 2" required>
+            <input class="form-control" type="text" name="answer3" placeholder="Enter Answer 3" required>
+            <input class="form-control" type="text" name="answer4" placeholder="Enter Answer 4" required>
+        </div>
+
+        <!-- Save and Cancel Buttons -->
+        <div class="btn-group">
+            <input class="save-button" type="submit" value="Save">
+            <a class="cancel-button" href="#" role="button">Cancel</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
