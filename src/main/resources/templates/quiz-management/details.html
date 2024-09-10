@@ -12,15 +12,9 @@
     <!-- Page title -->
     <h1 class="page-title">Quiz Details</h1>
 
-    <!-- Add More Questions Button; hidden for now until add question functionality can be completed in a later version -->
-    <div class="add-question-section">
-        <a th:href="@{/quizzes/{id}/add-question(id=${quiz.quizId})}" class="add-question-button" hidden>Add More Questions</a>
-    </div>
-
     <div class="question-list">
         <!-- Iterate over each question -->
         <div class="question-card" th:each="question : ${questions}">
-            <!-- Question Header -->
             <div class="question-card-header">
                 <span th:text="'Question ' + ${question.questionNumber} + ': ' + ${question.questionText}"></span>
             </div>
@@ -33,14 +27,12 @@
                     </li>
                 </ul>
 
-                <!-- Delete button for the question -->
                 <div class="delete-question">
                     <!-- Delete button with confirmation -->
                     <form th:action="@{/quizzes/{quizId}/questions/delete/{questionId}(quizId=${quiz.quizId}, questionId=${question.questionId})}" method="post" onsubmit="return confirm('Are you sure you want to delete this AWESOME question? This action cannot be undone.')">
                         <button type="submit" class="delete-button">Delete Question</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
